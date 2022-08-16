@@ -5,7 +5,7 @@ public class CarrinhoMaps {
     
     private Queue<Ponto> queue = new LinkedList<Ponto>();
     private int[][] movimentos = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-    Ponto[][] mapaPontos;
+    private Ponto[][] mapaPontos;
 
     public CarrinhoMaps(int tamanhoHorizontal, int tamanhoVertical){
         mapaPontos = gerarMapa(tamanhoHorizontal, tamanhoVertical);
