@@ -14,16 +14,14 @@ public class Player extends  Entity {
 
 
 
-    public final int screenX;
-    public final int screenY;
+    
 
     Entity entity = new Entity();
     public Player(GamePanel gp, KeyInput KeyInput) {
         this.gp = gp;
         this.KeyInput = KeyInput;
 
-        screenX = gp.getWidth()/2 - (gp.getTileSize()/2);
-        screenY = gp.getHeight()/2 - (gp.getTileSize()/2);
+        
 
         setDefaultValues();
         getPLayerImage();
@@ -100,7 +98,7 @@ public class Player extends  Entity {
                 img = entity.getRight();
                 break;
         }
-        g.drawImage(img, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+        g.drawImage(img, x, y, gp.getTileSize(), gp.getTileSize(), null);
     }
 
 
