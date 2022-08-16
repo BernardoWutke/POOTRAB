@@ -1,6 +1,7 @@
 package main;
 
 import entity.Player;
+import tile.TileManager;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicTreeUI;
@@ -30,6 +31,8 @@ public class GamePanel  extends JPanel implements Runnable {
     // GAME SETTINGS
     private int fps = 60;
 
+    TileManager tileM = new TileManager(this);
+    
     // Set player position default
     private int playerX = 100;
     private int playerY = 100;
@@ -89,6 +92,9 @@ public class GamePanel  extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
+        
+        tileM.draw(g2);
+
         player.draw(g2);
         g2.dispose();
     }
