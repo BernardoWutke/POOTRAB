@@ -56,7 +56,8 @@ public class Player extends  Entity {
     }
 
     public void  draw(Graphics2D g) {
-
+        g.setColor(Color.white);
+        g.fillRect(x,y, gp.getTileSize(), gp.getTileSize());
 
         BufferedImage img = null;
 
