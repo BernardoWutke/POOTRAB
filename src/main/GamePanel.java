@@ -22,11 +22,6 @@ public class GamePanel  extends JPanel implements Runnable {
     public final int screenWidth = tileSize * maxSCreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
 
-    // WORD SETTINGS
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
-    public final int maxWorldWidth = maxWorldCol * tileSize;
-    public final int maxWorldHeight = maxWorldRow * tileSize;
 
 
     KeyInput KeyInput = new KeyInput();
