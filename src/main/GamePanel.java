@@ -98,4 +98,18 @@ public class GamePanel  extends JPanel implements Runnable {
         player.draw(g2);
         g2.dispose();
     }
+
+    public int getMaxSCreenCol(){
+        return maxSCreenCol;
+    }
+    public int getMaxScreenRow(){
+        return maxScreenRow;
+    }
+    public int getScreenWidth(){
+        return screenWidth;
+    }
+    public int getScreenHeight(){
+        return screenHeight;
+    }
+
 }
