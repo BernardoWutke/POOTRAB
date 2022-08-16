@@ -57,12 +57,18 @@ public class TileManager {
             
             tile[10] = new Tile();
             tile[10].setTileImage(ImageIO.read(getClass().getResourceAsStream("/res/assets/ground/street.png")));
-
+            
             tile[11] = new Tile();
-            tile[11].setTileImage(ImageIO.read(getClass().getResourceAsStream("/res/assets/obstacles/hole.png")));
-
+            tile[11].setTileImage(ImageIO.read(getClass().getResourceAsStream("/res/assets/ground/street_horizontal_line.png")));
+            
             tile[12] = new Tile();
-            tile[12].setTileImage(ImageIO.read(getClass().getResourceAsStream("/res/assets/obstacles/cone.png")));
+            tile[12].setTileImage(ImageIO.read(getClass().getResourceAsStream("/res/assets/ground/street_vertical_line.png")));
+
+            tile[13] = new Tile();
+            tile[13].setTileImage(ImageIO.read(getClass().getResourceAsStream("/res/assets/obstacles/hole.png")));
+
+            tile[14] = new Tile();
+            tile[14].setTileImage(ImageIO.read(getClass().getResourceAsStream("/res/assets/obstacles/cone.png")));
             
         }
         catch(IOException e){
@@ -95,7 +101,6 @@ public class TileManager {
             }
             br.close();
                 
-            
 
         } catch (Exception e) {
             
