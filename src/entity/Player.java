@@ -13,17 +13,10 @@ public class Player extends  Entity {
     KeyInput KeyInput;
 
 
-
-    public final int screenX;
-    public final int screenY;
-
     Entity entity = new Entity();
     public Player(GamePanel gp, KeyInput KeyInput) {
         this.gp = gp;
         this.KeyInput = KeyInput;
-
-        screenX = gp.getWidth()/2 - (gp.getTileSize()/2);
-        screenY = gp.getHeight()/2 - (gp.getTileSize()/2);
 
         setDefaultValues();
         getPLayerImage();
@@ -38,10 +31,10 @@ public class Player extends  Entity {
 
     public void getPLayerImage(){
         try {
-           entity.setUp(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_up.png")));
-           entity.setDown(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_down.png")));
-           entity.setLeft(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_left.png")));
-           entity.setRight(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_right.png")));
+            entity.setUp(ImageIO.read(getClass().getResourceAsStream("/res/assets/car/car_up.png")));
+            entity.setDown(ImageIO.read(getClass().getResourceAsStream("/res/assets/car/car_down.png")));
+            entity.setLeft(ImageIO.read(getClass().getResourceAsStream("/res/assets/car/car_left.png")));
+            entity.setRight(ImageIO.read(getClass().getResourceAsStream("/res/assets/car/car_right.png")));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -100,7 +93,7 @@ public class Player extends  Entity {
                 img = entity.getRight();
                 break;
         }
-        g.drawImage(img, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+        g.drawImage(img, x, y, gp.getTileSize(), gp.getTileSize(), null);
     }
 
 
