@@ -30,11 +30,10 @@ public class Player extends  Entity {
 
     public void getPLayerImage(){
         try {
-           entity.setUp(ImageIO.read(getClass().getResourceAsStream("/res/player/carrinho_up.png")));
-           entity.setDown(ImageIO.read(getClass().getResourceAsStream("/res/player/carrinho_down.png")));
-           entity.setLeft(ImageIO.read(getClass().getResourceAsStream("/res/player/carrinho_left.png")));
-           entity.setRight(ImageIO.read(getClass().getResourceAsStream("/res/player/carrinho_right.png")));
-
+           entity.setUp(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_up.png")));
+           entity.setDown(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_down.png")));
+           entity.setLeft(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_left.png")));
+           entity.setRight(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_right.png")));
         } catch (IOException e){
             e.printStackTrace();
         }
