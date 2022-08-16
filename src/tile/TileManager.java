@@ -20,7 +20,7 @@ public class TileManager {
     public TileManager(GamePanel gp){
         this.gp = gp;
         tile = new Tile[10];
-        mapTileNum = new int[gp.getMaxSCreenCol()][gp.getMaxScreenRow()];
+        mapTileNum = new int[gp.maxSCreenCol][gp.maxScreenRow];
         getTileImage();
         loadMap("/res/maps/map01.txt");
     }
@@ -53,17 +53,17 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while (col < gp.getMaxSCreenCol() && row < gp.getMaxScreenRow()) {
+            while (col < gp.maxSCreenCol && row < gp.maxScreenRow) {
                 String line =  br.readLine();
 
-                while (col < gp.getMaxSCreenCol() && row < gp.getMaxScreenRow()) {
+                while (col < gp.maxSCreenCol && row < gp.maxScreenRow) {
                     String numbers[] = line.split(" ");  
                     int num = Integer.parseInt(numbers[col]);  
 
                     mapTileNum[col][row] = num;
                     col++;
                 }
-                if (col == gp.getMaxSCreenCol()) {
+                if (col == gp.maxSCreenCol) {
                     col = 0;
                     row++;
                 }
@@ -83,14 +83,14 @@ public class TileManager {
         int x = 0;
         int y = 0;
 
-        while (col < gp.getMaxSCreenCol() && row < gp.getMaxScreenRow()){
+        while (col < gp.maxSCreenCol && row < gp.maxScreenRow){
 
             int tileNum = mapTileNum[col][row];
 
             g2.drawImage(tile[tileNum].getImage(), x, y, gp.getTileSize(),gp.getTileSize(), null);
             col++;
             x += gp.getTileSize();
-            if(col == gp.getMaxSCreenCol()){
+            if(col == gp.maxSCreenCol){
                 col = 0;
                 row++;
                 x = 0;

@@ -12,18 +12,26 @@ public class Player extends  Entity {
     GamePanel gp;
     KeyInput KeyInput;
 
+
+
+    public final int screenX;
+    public final int screenY;
+
     Entity entity = new Entity();
     public Player(GamePanel gp, KeyInput KeyInput) {
         this.gp = gp;
         this.KeyInput = KeyInput;
+
+        screenX = gp.getWidth()/2 - (gp.getTileSize()/2);
+        screenY = gp.getHeight()/2 - (gp.getTileSize()/2);
 
         setDefaultValues();
         getPLayerImage();
     }
 
     public void setDefaultValues() {
-        this.x = 100;
-        this.y = 100;
+        this.x = 0;
+        this.y = 0;
         this.speed = 4;
         entity.setDirection("down");
     }
@@ -38,6 +46,24 @@ public class Player extends  Entity {
             e.printStackTrace();
         }
     }
+
+    void setX(int x){
+        this.x = x;
+    }
+
+    int getX(int x){
+        return this.x;
+    }
+
+    void setY(int y){
+        this.x = y;
+    }
+
+    int getY(int y){
+        return this.x;
+    }
+
+    
 
     public void update() {
         if(KeyInput.upPressed) {
@@ -56,8 +82,7 @@ public class Player extends  Entity {
     }
 
     public void  draw(Graphics2D g) {
-        g.setColor(Color.white);
-        g.fillRect(x,y, gp.getTileSize(), gp.getTileSize());
+
 
         BufferedImage img = null;
 
@@ -75,7 +100,7 @@ public class Player extends  Entity {
                 img = entity.getRight();
                 break;
         }
-        g.drawImage(img, x, y, gp.getTileSize(), gp.getTileSize(), null);
+        g.drawImage(img, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
     }
 
 

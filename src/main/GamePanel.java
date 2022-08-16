@@ -9,18 +9,24 @@ import java.awt.*;
 
 public class GamePanel  extends JPanel implements Runnable {
     // SCREEN SETTINGS
-    private final int originalTileSize = 16; //16x16 tile
-    private final int scale = 3;
-    private final int tileSize = originalTileSize * scale; // 48x48
+    public final int originalTileSize = 16; //16x16 tile
+    public final int scale = 3;
+    public final int tileSize = originalTileSize * scale; // 48x48
 
     public int getTileSize() {
         return tileSize;
     }
 
-    private final int maxSCreenCol = 16;
-    private final int maxScreenRow = 12;
-    private final int screenWidth = tileSize * maxSCreenCol;
-    private final int screenHeight = tileSize * maxScreenRow;
+    public final int maxSCreenCol = 16;
+    public final int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxSCreenCol;
+    public final int screenHeight = tileSize * maxScreenRow;
+
+    // WORD SETTINGS
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int maxWorldWidth = maxWorldCol * tileSize;
+    public final int maxWorldHeight = maxWorldRow * tileSize;
 
 
     KeyInput KeyInput = new KeyInput();
@@ -34,9 +40,6 @@ public class GamePanel  extends JPanel implements Runnable {
     TileManager tileM = new TileManager(this);
     
     // Set player position default
-    private int playerX = 100;
-    private int playerY = 100;
-    private int playerSpeed = 10;
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
@@ -97,19 +100,6 @@ public class GamePanel  extends JPanel implements Runnable {
 
         player.draw(g2);
         g2.dispose();
-    }
-
-    public int getMaxSCreenCol(){
-        return maxSCreenCol;
-    }
-    public int getMaxScreenRow(){
-        return maxScreenRow;
-    }
-    public int getScreenWidth(){
-        return screenWidth;
-    }
-    public int getScreenHeight(){
-        return screenHeight;
     }
 
 }
