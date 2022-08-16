@@ -57,7 +57,6 @@ public class Player extends  Entity {
 
     public void  draw(Graphics2D g) {
 
-
         BufferedImage img = null;
 
         switch (entity.getDirection()) {
