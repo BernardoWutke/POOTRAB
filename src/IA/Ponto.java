@@ -1,3 +1,5 @@
+package ia;
+
 public class Ponto {
     private boolean visitado;
     private boolean estradaLivre;

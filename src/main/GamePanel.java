@@ -22,6 +22,8 @@ public class GamePanel  extends JPanel implements Runnable {
     public final int screenWidth = tileSize * maxSCreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
 
+    public final String mapPath = "/res/maps/map01.txt";
+
 
     KeyInput KeyInput = new KeyInput();
     Thread gameThread;
@@ -56,6 +58,7 @@ public class GamePanel  extends JPanel implements Runnable {
         long timer = 0;
         int drawCount = 0;
 
+        player.percorrerRota();
 
         while (gameThread != null) {
             currentTime = System.nanoTime();
@@ -63,6 +66,7 @@ public class GamePanel  extends JPanel implements Runnable {
             timer += currentTime - lastTime;
             lastTime = currentTime;
 
+            
 
             if(delta >= 1){
                 update();
@@ -72,7 +76,6 @@ public class GamePanel  extends JPanel implements Runnable {
             }
 
             if(timer >= intervalDefalt){
-                
                 System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
