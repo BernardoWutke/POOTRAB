@@ -1,4 +1,4 @@
-package IA;
+package ia;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,6 +20,8 @@ public class CarrinhoMaps {
     }
  
     public String gerarCaminho(int xInicial,int yInical, int xDestino, int yDestino) {
+        String caminho = "";
+        boolean encontrou = false;
         for (Ponto[] pontos : mapaPontos) {
             for (Ponto ponto : pontos) {
                 ponto.setVisitado(false);
@@ -27,10 +29,15 @@ public class CarrinhoMaps {
         }
 
         queue.add(mapaPontos[xInicial][yInical]);
-        String caminho = "";
         while (queue.size() != 0) {
             Ponto ponto = queue.poll();
             ponto.setVisitado(true);
+
+            if(ponto.getCoordenadaX() == xDestino && ponto.getCoordenadaY() == yDestino){
+                encontrou = true;
+                break;
+            }
+
             for(int i = 0; i < 4; i++){
                 int newX = ponto.getCoordenadaX() + movimentos[i][0];
                 int newY = ponto.getCoordenadaY() + movimentos[i][1];
@@ -44,16 +51,18 @@ public class CarrinhoMaps {
                 }
             }
         }
-        int x = xDestino, y = yDestino;
-        while(x != xInicial || y != yInical){
-            Ponto ponto = mapaPontos[x][y];
-            int movX = x - ponto.getCoordenadaXPai();
-            int movY = y - ponto.getCoordenadaYPai();
-            caminho = movX + "," + movY + ";" + caminho;
+        if(encontrou){
+            int x = xDestino, y = yDestino;
+            while(x != xInicial || y != yInical){
+                Ponto ponto = mapaPontos[x][y];
+                int movX = x - ponto.getCoordenadaXPai();
+                int movY = y - ponto.getCoordenadaYPai();
+                caminho = movX + "," + movY + ";" + caminho;
 
-            x = ponto.getCoordenadaXPai();
-            y = ponto.getCoordenadaYPai();
+                x = ponto.getCoordenadaXPai();
+                y = ponto.getCoordenadaYPai();
 
+            }
         }
         return caminho;
     }

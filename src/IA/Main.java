@@ -1,4 +1,4 @@
-package IA;
+package ia;
 public class Main {
     public static void main(String[] args){
         CarrinhoMaps maps = new CarrinhoMaps("/res/maps/map01.txt");

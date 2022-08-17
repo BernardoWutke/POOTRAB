@@ -50,7 +50,7 @@ public class GamePanel  extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
-        this.addKeyListener(KeyInput);
+        //this.addKeyListener(KeyInput);
         this.setFocusable(true);
         this.addMouseListener(MouseInput);
     }
@@ -100,8 +100,8 @@ public class GamePanel  extends JPanel implements Runnable {
 
     public void start(){
         player.start();
-        player.decodificarRota();
-        player.proximoMovimento();
+        player.decodificarRota(0,0);
+       // player.proximoMovimento();
     }
 
     public  void update() {

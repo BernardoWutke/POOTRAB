@@ -20,7 +20,7 @@ public class MouseInput implements MouseListener {
         cliecked = true;
         x = e.getX();
         y = e.getY();
-        System.out.println(x + " " + y);
+       
     }
 
     @Override
