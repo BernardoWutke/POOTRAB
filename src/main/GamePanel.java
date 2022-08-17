@@ -10,18 +10,17 @@ import java.awt.*;
 public class GamePanel  extends JPanel implements Runnable {
     // SCREEN SETTINGS
     public final int originalTileSize = 16; //16x16 tile
-    public final int scale = 3;
+    public final int scale = 2;
     public final int tileSize = originalTileSize * scale; // 48x48
 
     public int getTileSize() {
         return tileSize;
     }
 
-    public final int maxSCreenCol = 16;
-    public final int maxScreenRow = 12;
+    public final int maxSCreenCol = 17;
+    public final int maxScreenRow = 17;
     public final int screenWidth = tileSize * maxSCreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
-
 
 
     KeyInput KeyInput = new KeyInput();
