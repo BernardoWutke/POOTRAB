@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -7,8 +13,8 @@ public class CarrinhoMaps {
     private int[][] movimentos = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
     private Ponto[][] mapaPontos;
 
-    public CarrinhoMaps(int tamanhoHorizontal, int tamanhoVertical){
-        mapaPontos = gerarMapa(tamanhoHorizontal, tamanhoVertical);
+    public CarrinhoMaps(String path){
+        mapaPontos = gerarMapa(path);
     }
  
     public String gerarCaminho(int xInicial,int yInical, int xDestino, int yDestino) {
@@ -28,7 +34,7 @@ public class CarrinhoMaps {
                 int newY = ponto.getCoordenadaY() + movimentos[i][1];
                 if(newX >= 0 && newX < mapaPontos.length && newY >= 0 && newY < mapaPontos[0].length){
                     Ponto newPonto = mapaPontos[newX][newY];
-                    if(!newPonto.foiVisitado() && !newPonto.temObstaculo()) {
+                    if(!newPonto.foiVisitado() && newPonto.getEstradaLivre()) {
                         queue.add(newPonto);
                         newPonto.setCoordenadaXPai(ponto.getCoordenadaX());
                         newPonto.setCoordenadaYPai(ponto.getCoordenadaY());
@@ -50,18 +56,52 @@ public class CarrinhoMaps {
         return caminho;
     }
 
-    public Ponto[][] gerarMapa(int tamanhoHorizontal, int tamanhoVertical){
-        Ponto[][] mapa = new Ponto[tamanhoVertical][tamanhoHorizontal];
-        for(int i = 0; i < tamanhoVertical; i++){
-            for(int j = 0; j < tamanhoHorizontal; j++){
+    public Ponto[][] mapearEstradas(ArrayList<ArrayList<Integer>> mapaNumeros){
+        int qtdLinhas = mapaNumeros.size();
+        int qtdColunas = mapaNumeros.get(0).size();
 
+        Ponto[][] mapa = new Ponto[qtdLinhas][qtdColunas];
+
+        for(int i = 0; i < qtdLinhas; i++){
+            for(int j = 0; j < qtdColunas; j++){
                 mapa[i][j] = new Ponto(i, j);
+                int num = mapaNumeros.get(i).get(j);
+                if(num == 10 || num == 11 || num == 12) mapa[i][j].setEstradaLivre(true);
             }
         }
         return mapa;
     }
 
-    public void marcarObstaculo(int coordenadaX, int coordenadaY){
-        mapaPontos[coordenadaX][coordenadaY].setObstaculo(true);
+    public Ponto[][] gerarMapa(String path) {
+
+        Ponto[][] mapa = null;
+
+        try {
+            InputStream is = getClass().getResourceAsStream(path);
+            BufferedReader buffReader = new BufferedReader(new InputStreamReader(is));
+            
+            String linha = buffReader.readLine();
+            ArrayList<ArrayList<Integer>> mapaNumeros = new ArrayList<ArrayList<Integer>>();
+            while(linha != null){
+                System.out.println("avulso");
+                String[] stringNumeros = linha.split(" ");
+                ArrayList<Integer> vetorNumeros = new ArrayList<Integer>();
+
+                for (String string : stringNumeros) {
+                    Integer num = Integer.parseInt(string);
+                    vetorNumeros.add(num);
+                }
+
+                mapaNumeros.add(vetorNumeros);
+                linha = buffReader.readLine();
+            }
+            buffReader.close();
+            mapa = mapearEstradas(mapaNumeros);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return mapa;
     }
 }

@@ -1,6 +1,6 @@
 public class Ponto {
     private boolean visitado;
-    private boolean obstaculo;
+    private boolean estradaLivre;
     private int coordenadaX;
     private int coordenadaY;
     private int coordenadaXPai;
@@ -19,11 +19,11 @@ public class Ponto {
         return visitado;
     }
 
-    public void setObstaculo(boolean obstaculo){
-        this.obstaculo = obstaculo;
+    public void setEstradaLivre(boolean bool){
+        this.estradaLivre = bool;
     }
-    public boolean temObstaculo(){
-        return obstaculo;
+    public boolean getEstradaLivre(){
+        return estradaLivre;
     }
 
     public void setCoordenadaX(int coordenadaX){

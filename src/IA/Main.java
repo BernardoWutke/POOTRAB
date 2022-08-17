@@ -1,15 +1,8 @@
 public class Main {
     public static void main(String[] args){
-        CarrinhoMaps maps = new CarrinhoMaps(5, 5);
-        
-        maps.marcarObstaculo(0, 1);
-        maps.marcarObstaculo(1, 1);
-        maps.marcarObstaculo(2, 1);
-        maps.marcarObstaculo(3, 1);
-        maps.marcarObstaculo(4, 3);
-        maps.marcarObstaculo(3, 3);
+        CarrinhoMaps maps = new CarrinhoMaps("/res/maps/map01.txt");
 
-        String caminho = maps.gerarCaminho(0, 0, 4, 4);
+        String caminho = maps.gerarCaminho(0, 0, 16, 16);
         System.out.println(caminho);
     }
 }
