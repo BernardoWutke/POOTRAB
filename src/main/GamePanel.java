@@ -33,12 +33,12 @@ public class GamePanel  extends JPanel implements Runnable {
 
     KeyInput KeyInput = new KeyInput();
 
-    MouseInput MouseInput = new MouseInput();
+    MouseInput mouseInput = new MouseInput();
     Thread gameThread;
 
-    Player player = new Player(this, KeyInput, MouseInput);
+    Player player = new Player(this, KeyInput);
 
-    Buttons buttons = new Buttons(MouseInput);
+    Buttons buttons = new Buttons(mouseInput);
 
     // GAME SETTINGS
     private int fps = 60;
@@ -52,7 +52,7 @@ public class GamePanel  extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         //this.addKeyListener(KeyInput);
         this.setFocusable(true);
-        this.addMouseListener(MouseInput);
+        this.addMouseListener(mouseInput);
     }
     public void startGameThread(){
 
@@ -69,7 +69,6 @@ public class GamePanel  extends JPanel implements Runnable {
         long timer = 0;
         int drawCount = 0;
 
-        start();
         
 
 
@@ -97,18 +96,22 @@ public class GamePanel  extends JPanel implements Runnable {
         }
 
     }
-
-    public void start(){
-        player.start();
-        player.decodificarRota(0,0);
-       // player.proximoMovimento();
-    }
-
     public  void update() {
+
+        if(mouseInput.hasClicked()){
+            int mouse_pointer_x = Math.round(mouseInput.getMousePositionX()/tileSize);
+            int mouse_pointer_y = Math.round(mouseInput.getMousePositionY()/tileSize);
+            
+            if(mouse_pointer_x < 17 && mouse_pointer_y < 17){
+                player.decodificarRota(mouse_pointer_x, mouse_pointer_y);
+            } 
+        }
         player.vereficarMovimento();
         player.update();
-        buttons.update();
+        mouseInput.setClicked(false);
     }
+   
+
 
     public  void paintComponent(Graphics g){
         super.paintComponent(g);
