@@ -11,21 +11,22 @@ import java.io.IOException;
 public class Player extends  Entity {
     GamePanel gp;
     KeyInput KeyInput;
-
+    int sizeMovement;
 
     Entity entity = new Entity();
     public Player(GamePanel gp, KeyInput KeyInput) {
         this.gp = gp;
         this.KeyInput = KeyInput;
-
+        
         setDefaultValues();
         getPLayerImage();
+        sizeMovement = gp.tileSize/this.speed;
     }
 
     public void setDefaultValues() {
         this.x = 0;
         this.y = 0;
-        this.speed = 4;
+        this.speed = 1;
         entity.setDirection("down");
     }
 
@@ -56,7 +57,13 @@ public class Player extends  Entity {
         return this.x;
     }
 
+    public void pecorrerRota(){
+        
+    }
     
+    public void start(){
+        goDown();
+    }
 
     public void update() {
         if(KeyInput.upPressed) {
@@ -73,6 +80,29 @@ public class Player extends  Entity {
             x += speed;
         }
     }
+
+    public void goDown(){
+        entity.setDirection("down");
+        for(int i = 0; i < sizeMovement; i++) {
+            y += speed;
+            
+        } 
+    }
+    public void goUp(){
+        entity.setDirection("up");
+        for(int i = 0; i < sizeMovement; i++) y -= speed;
+    }
+    public void goRight(){
+        entity.setDirection("right");
+        for(int i = 0; i < sizeMovement; i++) x += speed;
+    }
+    public void goLeft(){
+        entity.setDirection("left");
+        for(int i = 0; i < sizeMovement; i++) x -= speed;
+    }
+
+
+
 
     public void  draw(Graphics2D g) {
 

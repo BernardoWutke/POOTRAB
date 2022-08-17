@@ -83,7 +83,6 @@ public class CarrinhoMaps {
             String linha = buffReader.readLine();
             ArrayList<ArrayList<Integer>> mapaNumeros = new ArrayList<ArrayList<Integer>>();
             while(linha != null){
-                System.out.println("avulso");
                 String[] stringNumeros = linha.split(" ");
                 ArrayList<Integer> vetorNumeros = new ArrayList<Integer>();
 

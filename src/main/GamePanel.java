@@ -11,7 +11,7 @@ public class GamePanel  extends JPanel implements Runnable {
     // SCREEN SETTINGS
     public final int originalTileSize = 16; //16x16 tile
     public final int scale = 2;
-    public final int tileSize = originalTileSize * scale; // 48x48
+    public final int tileSize = originalTileSize * scale;
 
     public int getTileSize() {
         return tileSize;
@@ -72,6 +72,7 @@ public class GamePanel  extends JPanel implements Runnable {
             }
 
             if(timer >= intervalDefalt){
+                
                 System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
@@ -79,6 +80,10 @@ public class GamePanel  extends JPanel implements Runnable {
 
         }
 
+    }
+
+    public void start(){
+        player.start();
     }
 
     public  void update() {
