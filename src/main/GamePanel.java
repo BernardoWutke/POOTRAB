@@ -69,7 +69,9 @@ public class GamePanel  extends JPanel implements Runnable {
         long timer = 0;
         int drawCount = 0;
 
-        player.percorrerRota();
+        start();
+        
+
 
         while (gameThread != null) {
             currentTime = System.nanoTime();
@@ -98,19 +100,19 @@ public class GamePanel  extends JPanel implements Runnable {
 
     public void start(){
         player.start();
+        player.decodificarRota();
+        player.proximoMovimento();
     }
 
     public  void update() {
+        player.vereficarMovimento();
         player.update();
         buttons.update();
     }
 
     public  void paintComponent(Graphics g){
         super.paintComponent(g);
-
         Graphics2D g2 = (Graphics2D) g;
-
-
         tileM.draw(g2);
         buttons.draw(g2);
         player.draw(g2);

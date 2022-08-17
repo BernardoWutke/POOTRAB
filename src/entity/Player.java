@@ -1,5 +1,6 @@
 package entity;
 
+import IA.CarrinhoMaps;
 import main.GamePanel;
 import main.KeyInput;
 import main.MouseInput;
@@ -8,37 +9,37 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
-import ia.CarrinhoMaps;
+import java.util.LinkedList;
+import java.util.Queue;
+
 
 public class Player extends  Entity {
+    
     GamePanel gp;
     KeyInput KeyInput;
     int sizeMovement;
 
-
-    private CarrinhoMaps carrinhoMaps;
+    Queue<Movimento> filaMovimento = new LinkedList<Movimento>();
+    CarrinhoMaps carrinhoMaps;
 
     Entity entity = new Entity();
-
-    public Player(GamePanel gp, KeyInput KeyInput) {
-        this.gp = gp;
-        this.KeyInput = KeyInput;
-        
-        carrinhoMaps = new CarrinhoMaps(gp.mapPath);
 
     MouseInput MouseInput;
 
     public final int screenX;
     public final int screenY;
 
-    Entity entity = new Entity();
+    private int x_buff;
+    private int y_buff;
+
+
     public Player(GamePanel gp, KeyInput KeyInput, MouseInput MouseInput) {
         this.gp = gp;
         this.KeyInput = KeyInput;
         this.MouseInput = MouseInput;
+
+        carrinhoMaps = new CarrinhoMaps(gp.mapPath);
 
         screenX = gp.getWidth() / 2;
         screenY = gp.getHeight() / 2;
@@ -52,7 +53,7 @@ public class Player extends  Entity {
     public void setDefaultValues() {
         this.x = 0;
         this.y = 0;
-        this.speed = 1;
+        this.speed = 2;
         entity.setDirection("down");
     }
 
@@ -83,59 +84,51 @@ public class Player extends  Entity {
         return this.x;
     }
 
-
-    private int[][] decodificarRota(){
+    public void decodificarRota(){
         String caminho = carrinhoMaps.gerarCaminho(this.x/gp.tileSize, this.y/gp.tileSize, 0, 3);
         String[] stringMovimentos = caminho.split(";");
-        int[][] matrizMovimentos = new int[stringMovimentos.length][2];
 
         for(int i = 0; i < stringMovimentos.length; i++){
-            String[] mov = stringMovimentos[i].split(",");
-            matrizMovimentos[i][0] = Integer.parseInt(mov[0]);
-            matrizMovimentos[i][1] = Integer.parseInt(mov[1]);
+            String[] moveText = stringMovimentos[i].split(",");
+            Movimento movimento = new Movimento(Integer.parseInt(moveText[0]), Integer.parseInt(moveText[1]));
+            filaMovimento.add(movimento);
         }
-
-        return matrizMovimentos;
+        //proximoMovimento();
     }
 
-    public void percorrerRota(){
-        int[][] movimentos = decodificarRota();
-        for (int[] mov : movimentos) {
-
-            if(mov[0] == 1 && mov[1] == 0) goDown();
-            else if(mov[0] == -1 && mov[1] == 0) goUp();
-            else if(mov[0] == 0 && mov[1] == 1) goRight();
+    public void proximoMovimento(){
+        
+        Movimento movimento = null;
+        if(!filaMovimento.isEmpty()){
+            movimento = filaMovimento.poll();
+            if(movimento.getX() == 1 && movimento.getY() == 0) goDown();
+            else if(movimento.getX() == -1 && movimento.getY() == 0) goUp();
+            else if(movimento.getX() == 0 && movimento.getY() == 1) goRight();
             else goLeft();
-
-            try{
-                Thread.sleep(200);
-            }
-            catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            gp.repaint();
+        } else {
+            stop();
         }
     }
+
     
     public void start(){
-       
-        
-    }
 
+        update();
+    }
 
 
     public void update() {
 
-        if(KeyInput.upPressed) {
+        if(Direction.up) {
             entity.setDirection("up");
             y -= speed;
-        } else if (KeyInput.downPressed) {
+        } else if (Direction.down) {
             entity.setDirection("down");
             y += speed;
-        } else if (KeyInput.leftPressed) {
+        } else if (Direction.left) {
             entity.setDirection("left");
             x -= speed;
-        } else if (KeyInput.rightPressed) {
+        } else if (Direction.right) {
             entity.setDirection("right");
             x += speed;
         }
@@ -143,29 +136,39 @@ public class Player extends  Entity {
 
     public void goDown(){
         entity.setDirection("down");
-        for(int i = 0; i < sizeMovement; i++) {
-            y += speed;
-            
-        } 
+        Direction.down = true;
     }
     public void goUp(){
-        entity.setDirection("up");
-        for(int i = 0; i < sizeMovement; i++) y -= speed;
+        entity.setDirection("up");  
+        Direction.up = true;
     }
     public void goRight(){
         entity.setDirection("right");
-        for(int i = 0; i < sizeMovement; i++) x += speed;
+        Direction.right = true;
+
     }
     public void goLeft(){
         entity.setDirection("left");
-        for(int i = 0; i < sizeMovement; i++) x -= speed;
+        Direction.left = true;
     }
 
+    public void stop(){
+        Direction.down = false;
+        Direction.up = false;
+        Direction.left = false;
+        Direction.right = false;
+    }
 
-
+    public void vereficarMovimento(){ 
+        if (Math.abs(y_buff - y) >= gp.tileSize || Math.abs(x_buff - x) >= gp.tileSize) {
+            x_buff = x;
+            y_buff = y;
+            stop();
+            proximoMovimento();
+        }
+    }
 
     public void  draw(Graphics2D g) {
-
 
         BufferedImage img = null;
 
@@ -186,6 +189,25 @@ public class Player extends  Entity {
         g.drawImage(img, x, y, gp.getTileSize(), gp.getTileSize(), null);
     }
 
+    static class Direction {
+        public static boolean up, down, left, right;
+    }
 
+    private class Movimento {
+        private int x;
+        private int y;
+
+        Movimento(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+
+        public int getX(){
+            return x;
+        }
+        public int getY(){
+            return y;
+        }
+    }
 }
 

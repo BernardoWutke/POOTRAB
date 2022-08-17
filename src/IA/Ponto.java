@@ -1,4 +1,4 @@
-package ia;
+package IA;
 
 public class Ponto {
     private boolean visitado;
