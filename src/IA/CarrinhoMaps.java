@@ -1,3 +1,5 @@
+package ia;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -67,6 +69,7 @@ public class CarrinhoMaps {
                 mapa[i][j] = new Ponto(i, j);
                 int num = mapaNumeros.get(i).get(j);
                 if(num == 10 || num == 11 || num == 12) mapa[i][j].setEstradaLivre(true);
+                else mapa[i][j].setEstradaLivre(false);
             }
         }
         return mapa;
@@ -83,7 +86,6 @@ public class CarrinhoMaps {
             String linha = buffReader.readLine();
             ArrayList<ArrayList<Integer>> mapaNumeros = new ArrayList<ArrayList<Integer>>();
             while(linha != null){
-                System.out.println("avulso");
                 String[] stringNumeros = linha.split(" ");
                 ArrayList<Integer> vetorNumeros = new ArrayList<Integer>();
 

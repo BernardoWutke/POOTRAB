@@ -11,7 +11,7 @@ public class GamePanel  extends JPanel implements Runnable {
     // SCREEN SETTINGS
     public final int originalTileSize = 16; //16x16 tile
     public final int scale = 2;
-    public final int tileSize = originalTileSize * scale; // 48x48
+    public final int tileSize = originalTileSize * scale;
 
     public int getTileSize() {
         return tileSize;
@@ -21,6 +21,8 @@ public class GamePanel  extends JPanel implements Runnable {
     public final int maxScreenRow = 17;
     public final int screenWidth = tileSize * maxSCreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
+
+    public final String mapPath = "/res/maps/map01.txt";
 
 
     // WORLD SETTINGS
@@ -67,6 +69,7 @@ public class GamePanel  extends JPanel implements Runnable {
         long timer = 0;
         int drawCount = 0;
 
+        player.percorrerRota();
 
         while (gameThread != null) {
             currentTime = System.nanoTime();
@@ -74,6 +77,7 @@ public class GamePanel  extends JPanel implements Runnable {
             timer += currentTime - lastTime;
             lastTime = currentTime;
 
+            
 
             if(delta >= 1){
                 update();
@@ -90,6 +94,10 @@ public class GamePanel  extends JPanel implements Runnable {
 
         }
 
+    }
+
+    public void start(){
+        player.start();
     }
 
     public  void update() {
