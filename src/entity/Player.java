@@ -13,15 +13,10 @@ public class Player extends  Entity {
     KeyInput KeyInput;
 
 
-
-    
-
     Entity entity = new Entity();
     public Player(GamePanel gp, KeyInput KeyInput) {
         this.gp = gp;
         this.KeyInput = KeyInput;
-
-        
 
         setDefaultValues();
         getPLayerImage();
@@ -36,10 +31,10 @@ public class Player extends  Entity {
 
     public void getPLayerImage(){
         try {
-           entity.setUp(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_up.png")));
-           entity.setDown(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_down.png")));
-           entity.setLeft(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_left.png")));
-           entity.setRight(ImageIO.read(getClass().getResourceAsStream("/res/Assets/carrinho_right.png")));
+            entity.setUp(ImageIO.read(getClass().getResourceAsStream("/res/assets/car/car_up.png")));
+            entity.setDown(ImageIO.read(getClass().getResourceAsStream("/res/assets/car/car_down.png")));
+            entity.setLeft(ImageIO.read(getClass().getResourceAsStream("/res/assets/car/car_left.png")));
+            entity.setRight(ImageIO.read(getClass().getResourceAsStream("/res/assets/car/car_right.png")));
         } catch (IOException e){
             e.printStackTrace();
         }
