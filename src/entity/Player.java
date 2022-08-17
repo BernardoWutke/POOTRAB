@@ -2,11 +2,14 @@ package entity;
 
 import main.GamePanel;
 import main.KeyInput;
+import main.MouseInput;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import ia.CarrinhoMaps;
 
@@ -14,6 +17,7 @@ public class Player extends  Entity {
     GamePanel gp;
     KeyInput KeyInput;
     int sizeMovement;
+
 
     private CarrinhoMaps carrinhoMaps;
 
@@ -24,6 +28,21 @@ public class Player extends  Entity {
         this.KeyInput = KeyInput;
         
         carrinhoMaps = new CarrinhoMaps(gp.mapPath);
+
+    MouseInput MouseInput;
+
+    public final int screenX;
+    public final int screenY;
+
+    Entity entity = new Entity();
+    public Player(GamePanel gp, KeyInput KeyInput, MouseInput MouseInput) {
+        this.gp = gp;
+        this.KeyInput = KeyInput;
+        this.MouseInput = MouseInput;
+
+        screenX = gp.getWidth() / 2;
+        screenY = gp.getHeight() / 2;
+
 
         setDefaultValues();
         getPLayerImage();
@@ -64,6 +83,7 @@ public class Player extends  Entity {
         return this.x;
     }
 
+
     private int[][] decodificarRota(){
         String caminho = carrinhoMaps.gerarCaminho(this.x/gp.tileSize, this.y/gp.tileSize, 0, 3);
         String[] stringMovimentos = caminho.split(";");
@@ -102,7 +122,10 @@ public class Player extends  Entity {
         
     }
 
+
+
     public void update() {
+
         if(KeyInput.upPressed) {
             entity.setDirection("up");
             y -= speed;

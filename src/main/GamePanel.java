@@ -1,10 +1,10 @@
 package main;
 
+import buttons.Buttons;
 import entity.Player;
 import tile.TileManager;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicTreeUI;
 import java.awt.*;
 
 public class GamePanel  extends JPanel implements Runnable {
@@ -17,7 +17,7 @@ public class GamePanel  extends JPanel implements Runnable {
         return tileSize;
     }
 
-    public final int maxSCreenCol = 17;
+    public final int maxSCreenCol = 19;
     public final int maxScreenRow = 17;
     public final int screenWidth = tileSize * maxSCreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
@@ -25,10 +25,20 @@ public class GamePanel  extends JPanel implements Runnable {
     public final String mapPath = "/res/maps/map01.txt";
 
 
+    // WORLD SETTINGS
+    public final int maxWorldCol = 17;
+    public final int maxWorldRow = 17;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
+
     KeyInput KeyInput = new KeyInput();
+
+    MouseInput MouseInput = new MouseInput();
     Thread gameThread;
 
-    Player player = new Player(this, KeyInput);
+    Player player = new Player(this, KeyInput, MouseInput);
+
+    Buttons buttons = new Buttons(MouseInput);
 
     // GAME SETTINGS
     private int fps = 60;
@@ -42,6 +52,7 @@ public class GamePanel  extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(KeyInput);
         this.setFocusable(true);
+        this.addMouseListener(MouseInput);
     }
     public void startGameThread(){
 
@@ -91,15 +102,17 @@ public class GamePanel  extends JPanel implements Runnable {
 
     public  void update() {
         player.update();
+        buttons.update();
     }
 
     public  void paintComponent(Graphics g){
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
-        
-        tileM.draw(g2);
 
+
+        tileM.draw(g2);
+        buttons.draw(g2);
         player.draw(g2);
         g2.dispose();
     }
