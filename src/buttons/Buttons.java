@@ -26,16 +26,15 @@ public class Buttons {
         }
     }
 
-    public void update(){
-        if(mouseInput.x >= 544 && mouseInput.x <= 544 + 64 && mouseInput.y >= 480 && mouseInput.y <= 480 + 64){
-            if(mouseInput.cliecked){
-                cone_click = true;
-                System.out.println("Cone button clicked");
-                mouseInput.cliecked = false;
-            }
-        } else {
-            cone_click = false;
-        }
-    }
+    // public void update(){
+    //     if(mouseInput.x >= 544 && mouseInput.x <= 544 + 64 && mouseInput.y >= 480 && mouseInput.y <= 480 + 64){
+    //         if(mouseInput.clicked){
+    //             cone_click = true;
+    //             mouseInput.clicked = false;
+    //         }
+    //     } else {
+    //         cone_click = false;
+    //     }
+    // }
 
 }

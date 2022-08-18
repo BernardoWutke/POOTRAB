@@ -7,20 +7,36 @@ import java.awt.event.MouseListener;
 import static com.sun.java.accessibility.util.AWTEventMonitor.*;
 
 public class MouseInput implements MouseListener {
-    public boolean cliecked = false;
-    public int x, y;
+    private boolean clicked = false;
+    private int mousePositionX, mousePositionY;
 
     @Override
     public void mouseClicked(MouseEvent e) {
 
+        if(!clicked){
+            clicked = true;
+            mousePositionX = e.getX();
+            mousePositionY = e.getY(); 
+        }
+    }
+
+
+    public int getMousePositionX() {
+        return mousePositionX;
+    }
+    public int getMousePositionY() {
+        return mousePositionY;
+    }
+    public boolean hasClicked(){
+        return clicked;
+    }
+    public void setClicked(boolean bool){
+        this.clicked = bool;
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        cliecked = true;
-        x = e.getX();
-        y = e.getY();
-       
+        
     }
 
     @Override

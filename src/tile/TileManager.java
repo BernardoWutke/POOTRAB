@@ -66,9 +66,6 @@ public class TileManager {
 
             tile[13] = new Tile();
             tile[13].setTileImage(ImageIO.read(getClass().getResourceAsStream("/res/assets/obstacles/hole.png")));
-
-            tile[14] = new Tile();
-            tile[14].setTileImage(ImageIO.read(getClass().getResourceAsStream("/res/assets/obstacles/cone.png")));
             
         }
         catch(IOException e){

@@ -27,8 +27,6 @@ public class Player extends  Entity {
 
     Entity entity = new Entity();
 
-    MouseInput MouseInput;
-
     public final int screenX;
     public final int screenY;
 
@@ -37,10 +35,9 @@ public class Player extends  Entity {
 
     private boolean isMoving = false;
 
-    public Player(GamePanel gp, KeyInput KeyInput, MouseInput MouseInput) {
+    public Player(GamePanel gp, KeyInput KeyInput) {
         this.gp = gp;
         this.KeyInput = KeyInput;
-        this.MouseInput = MouseInput;
 
         carrinhoMaps = new CarrinhoMaps(gp.mapPath);
 
@@ -80,23 +77,24 @@ public class Player extends  Entity {
     }
 
     void setY(int y){
-        this.x = y;
+        this.y = y;
     }
 
     int getY(int y){
-        return this.x;
+        return this.y;
+    }
+
+    public boolean getIsMoving(){
+        return isMoving;
     }
 
     public void decodificarRota(int ponto_x, int ponto_y){
         filaMovimento.clear();
 
-        String caminho = carrinhoMaps.gerarCaminho(this.y/gp.tileSize,this.x/gp.tileSize , ponto_x, ponto_y);
+        String caminho = carrinhoMaps.gerarCaminho(this.y/gp.tileSize,this.x/gp.tileSize , ponto_y, ponto_x);
         
         if (caminho.length() != 0){
-            System.out.println("x = " + this.x/gp.tileSize + " y = " + this.y/gp.tileSize);
-            System.out.println("ROTA = " +  caminho);
             String[] stringMovimentos = caminho.split(";");
-
             for(int i = 0; i < stringMovimentos.length; i++){
                 String[] moveText = stringMovimentos[i].split(",");
                 Movimento movimento = new Movimento(Integer.parseInt(moveText[0]), Integer.parseInt(moveText[1]));
@@ -107,7 +105,7 @@ public class Player extends  Entity {
     }
 
     public void proximoMovimento(){
-        
+        isMoving = true;
         Movimento movimento = null;
         if(!filaMovimento.isEmpty()){
             movimento = filaMovimento.poll();
@@ -117,19 +115,11 @@ public class Player extends  Entity {
             else goLeft();
         } else {
             stop();
-            System.out.println("FIM DA ROTA");
             isMoving = false;
         }
     }
 
-    
-    public void start(){
-        update();
-    }
-
-
     public void update() {
-        novaRota96();
         if(Direction.up) {
             entity.setDirection("up");
             y -= speed;
@@ -168,21 +158,6 @@ public class Player extends  Entity {
         Direction.up = false;
         Direction.left = false;
         Direction.right = false;
-    }
-
-
-    public void  novaRota96(){
-        
-
-        if(MouseInput.cliecked && !isMoving){
-            System.out.println("Clicou !!");
-            isMoving = true;
-            int mouse_pointer_x = Math.round(MouseInput.x/gp.tileSize);
-            int mouse_pointer_y = Math.round(MouseInput.y/gp.tileSize);
-            System.out.println(mouse_pointer_x + "," + mouse_pointer_y);
-            decodificarRota(mouse_pointer_y, mouse_pointer_x);
-            MouseInput.cliecked = false;
-        }
     }
 
     public void vereficarMovimento(){ 
@@ -235,5 +210,7 @@ public class Player extends  Entity {
             return y;
         }
     }
+
+    
 }
 
